@@ -197,7 +197,7 @@ else
 fi
 
 zip -r SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.zip .
-tar -H ustar -c ${KERNELDIR}/output/$TARGET/CODEG33K/boot.img > SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar
+tar -H ustar -c ${KERNELDIR}/output/$TARGET/boot.img > SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar
 md5sum -t SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar >> SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar
 mv SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar SM-$TARGET-$AUDIO-kernel-${GETVER}-`date +[%d-%m-%y]`.tar.md5
 
