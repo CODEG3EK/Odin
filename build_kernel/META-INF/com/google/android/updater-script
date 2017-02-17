@@ -1,43 +1,61 @@
+# UPDATER-SCRIPT PROVIDED BY DEV-HOST.EU
+# CODED AND TESTET BY CODEG33K
+
+# PROJECT INFORMATION
+
 ui_print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 ui_print("            Project Thor            ");
 ui_print("             Galaxy S6              ");
 ui_print("            by CODEG33K             ");
 ui_print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
+# LET'S MAKE A BLANK LINE HERE
 ui_print(" ");
+
+# PROGRESS BAR
+show_progress(1.34,120);
+
+# MOUNT DATA PARTITION
 ui_print("Mounting Data...");
 run_program("/sbin/mount", "/dev/block/platform/15570000.ufs/by-name/USERDATA", "/data");
 
+# CLEAR OLD JUNK FILES
 ui_print(" ");
-ui_print("removing old junk data for clean install...");
+ui_print("Getting rid of some old and unwanted data...");
 delete("/data/dalvik-cache/arm64/data@app@com.af.synapse@base.apk@classes.dex", "/data/dalvik-cache/arm64/data@app@com.af.synapse-1@base.apk@classes.dex", "/data/dalvik-cache/arm64/data@app@com.af.synapse-2@base.apk@classes.dex");
 delete("/data/dalvik-cache/profiles/com.af.synapse");
 delete_recursive("/data/data/com.af.synapse");
 
+# EXTRACTING THE KERNEL FILES
 ui_print(" ");
 ui_print("Extracting Kernel files...");
 package_extract_file("boot.img", "/dev/block/platform/15570000.ufs/by-name/BOOT");
 
+# EXTRACT AND INSTALL SUPERSU
 ui_print(" ");
 package_extract_dir("supersu", "/tmp/supersu");
 run_program("/sbin/busybox", "unzip", "/tmp/supersu/SR3-SuperSU-v2.79-SR3.zip", "META-INF/com/google/android/*", "-d", "/tmp/supersu");
 run_program("/sbin/busybox", "sh", "/tmp/supersu/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/supersu/SR3-SuperSU-v2.79-SR3.zip");
 
+# CLEAN BUSYBOX & APPLETS
 ui_print(" ");
 ui_print("Clean up busybox & applets...");
 package_extract_dir("busybox", "/tmp/busybox");
 run_program("/sbin/busybox", "unzip", "/tmp/busybox/BusyBox-Cleaner-YDS.zip", "META-INF/com/google/android/*", "-d", "/tmp/busybox");
 run_program("/sbin/busybox", "sh", "/tmp/busybox/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/busybox/BusyBox-Cleaner-YDS.zip");
 
+# MOUNT SYSTEM PARTITION
 ui_print(" ");
 ui_print("Mounting System...");
 run_program("/sbin/mount", "/dev/block/platform/15570000.ufs/by-name/SYSTEM", "/system");
 
+# REMOVE OLD LIB MODULES
 ui_print(" ");
 ui_print("Remove modules & sqlite3");
 delete_recursive("/system/lib/modules");
 delete("/system/xbin/sqlite3", "/system/bin/sqlite3");
 
+# INSTALL BUSYBOX & SQLITE
 ui_print(" ");
 ui_print("Extracting modules, busybox & sqlite3...");
 package_extract_dir("system", "/system");
@@ -46,15 +64,24 @@ set_perm(0, 2000, 0755, "/system/xbin/busybox");
 run_program("/system/xbin/busybox", "--install", "-s", "/system/xbin");
 set_perm(0, 0, 0755, "/system/xbin/sqlite3");
 
+# CLEANING UP AND GETTING READY FOR UNMOUNTING
 ui_print(" ");
 ui_print("Unmounting system & data...");
 unmount("/system");
 unmount("/data");
+
 ui_print(" ");
 ui_print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 ui_print(" Project Thor Kernel now installed  ");
 ui_print("         On your Galaxy S6          ");
-ui_print("           ------------             ");
-ui_print("              Enjoy IT!                ");
+ui_print("           -------------            ");
+ui_print("             Enjoy IT!              ");
 ui_print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+ui_print(" ");
+ui_print(" ");
+ui_print("################");
+ui_print("/   CREDITS:   /");
+ui_print("/    N0DEVZ    /");
+ui_print("/ MR. CODEG33K /");
+ui_print("################");
 ui_print(" ");
